@@ -1,6 +1,13 @@
+import { Dispatch, SetStateAction } from "react";
 import Select from "react-select";
 
-const Controls = () => {
+const Controls = ({
+  setSortField,
+  setSortDirection,
+}: {
+  setSortField: Dispatch<SetStateAction<string>>;
+  setSortDirection: Dispatch<SetStateAction<string>>;
+}) => {
   const fieldOptions = [
     { label: "Name", value: "name" },
     { label: "Company", value: "company" },
@@ -17,7 +24,12 @@ const Controls = () => {
         <label htmlFor="sort-field" className="label">
           Sort Field
         </label>
-        <Select options={fieldOptions} inputId="sort-field" className="input" />
+        <Select
+          options={fieldOptions}
+          inputId="sort-field"
+          className="input"
+          onChange={(option) => option && setSortField(option.value || "")}
+        />
       </div>
       <div className="form-group group">
         <label htmlFor="sort-direction" className="label">
@@ -27,6 +39,7 @@ const Controls = () => {
           options={directionOptions}
           inputId="sort-direction"
           className="input"
+          onChange={(option) => option && setSortDirection(option.value || "")}
         />
       </div>
     </div>
